@@ -35,5 +35,10 @@
             <useDefaultExcludes>true</useDefaultExcludes>
             <outputDirectory>JNotificationDemo/lib</outputDirectory>
         </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/test</directory>
+            <useDefaultExcludes>true</useDefaultExcludes>
+            <outputDirectory>JNotificationDemo/test</outputDirectory>
+        </fileSet>
     </fileSets>
 </assembly>

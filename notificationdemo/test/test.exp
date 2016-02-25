@@ -1,0 +1,36 @@
+#! /usr/bin/env expect
+
+if { $argc != 1 } {
+    puts "usage: $argv0 demo_executable"
+    exit 1
+}
+
+set timeout 3
+
+spawn $argv
+proc expect_tt {pattern} {
+    expect {
+        default {
+            error "\n\nTimed out waiting for \"$pattern\"\n";
+            exit 1;
+        }
+        "$pattern"
+    }
+}
+
+expect_tt "Notification demo started"
+expect_tt "Topic list was updated"
+expect_tt "Topic: id "
+expect_tt "name"
+expect_tt "type"
+expect_tt "Topic: id "
+expect_tt "name"
+expect_tt "type"
+expect_tt "Subscribing to optional topic "
+expect_tt "Notification for topic id "
+expect_tt "Notification body: "
+expect_tt "Notification for topic id "
+expect_tt "Notification body: "
+send "\n"
+expect_tt "Notification demo stopped"
+

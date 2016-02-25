@@ -30,5 +30,10 @@
             <useDefaultExcludes>true</useDefaultExcludes>
             <outputDirectory>CNotificationDemo</outputDirectory>
         </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/test</directory>
+            <useDefaultExcludes>true</useDefaultExcludes>
+            <outputDirectory>CNotificationDemo/test</outputDirectory>
+        </fileSet>
     </fileSets>
 </assembly>
