@@ -146,7 +146,6 @@ case "$cmd" in
         run_test
         ;;
 
-
     clean)
         clean
     ;;
