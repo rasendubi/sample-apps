@@ -19,7 +19,7 @@
 RUN_DIR=`pwd`
 
 function help {
-    echo "Choose one of the following: {build|run|deploy|clean}"
+    echo "Choose one of the following: {build|run|deploy|test|clean}"
     echo "Supported platforms: x86-64"
     exit 1
 }
@@ -106,6 +106,17 @@ function run {
     ./$APP_NAME
 }
 
+function run_test {
+    rm -f $PROJECT_HOME/$BUILD_DIR/kaa_status.bin
+    $PROJECT_HOME/test/test.exp $PROJECT_HOME/$BUILD_DIR/$APP_NAME 2> /dev/null
+    if [ $? -ne 0 ] ; then
+        echo "TEST FAILED"
+        exit 1
+    else
+        echo "TEST PASSED"
+    fi
+}
+
 for cmd in $@
 do
 
@@ -126,6 +137,11 @@ case "$cmd" in
         build_thirdparty
         build_app
         run
+        ;;
+
+    test)
+        build_app
+        run_test
         ;;
 
     clean)

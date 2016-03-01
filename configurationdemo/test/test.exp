@@ -1,0 +1,27 @@
+#!/usr/bin/env expect
+
+if { $argc != 1 } {
+    puts "usage: $argv0 demo_executable"
+    exit 1
+}
+
+set timeout 3
+
+spawn $argv
+proc expect_tt {pattern} {
+    expect {
+        default {
+            error "\n\nTimed out waiting for \"$pattern\"\n";
+            exit 1;
+        }
+        "$pattern"
+    }
+}
+
+expect_tt "Configuration demo started"
+expect_tt "Configuration body:"
+expect_tt "Kaa website"
+expect_tt "Kaa GitHub repository"
+expect_tt "Kaa docs"
+expect_tt "Kaa configuration design reference"
+send "\x03"
