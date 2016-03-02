@@ -1,0 +1,45 @@
+#!/usr/bin/env expect
+
+if { $argc != 2 } {
+    puts "usage: $argv0 demo_executable lang"
+    exit 1
+}
+
+set timeout 10
+set lang [lindex $argv 1]
+
+spawn [lindex $argv 0]
+proc expect_tt {pattern} {
+    expect {
+        default {
+            error "\n\nTimed out waiting for \"$pattern\"\n";
+            exit 1;
+        }
+        -re "$pattern"
+    }
+}
+
+expect_tt "Data collection demo started"
+if { $lang == "c"} {
+    set y 1;
+    for {set x 0} {$x<5} {incr x} {
+        expect_tt "Going to add ${x}th log record"
+        expect_tt "Log record: $x added to bucket $y"
+        expect_tt "Bucket: $y is successfully delivered. Logs uploaded: 1"
+        incr y
+    }
+    expect_tt "All logs are sent, waiting for responce"
+    expect_tt "All logs successfully sent, stopping demo..."
+} elseif { $lang == "cpp"} {
+    for {set x 1} {$x<5} {incr x} {
+        expect_tt "Sent ${x}th record"
+    }
+    for {set x 0} {$x<5} {incr x} {
+        expect_tt "Received log record delivery info."
+    }
+} else {
+    error "\n\n $lang is not suported"
+    exit 1;
+}
+expect_tt "Data collection demo stopped"
+
