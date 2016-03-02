@@ -108,7 +108,7 @@ function run {
 }
 
 function run_test {
-    rm $PROJECT_HOME/$BUILD_DIR/kaa_status.bin
+    rm -f $PROJECT_HOME/$BUILD_DIR/kaa_status.bin
     $PROJECT_HOME/test/test.exp $PROJECT_HOME/$BUILD_DIR/$APP_NAME 2> /dev/null
     if [ $? -ne 0 ] ; then
         echo "TEST FAILED"
